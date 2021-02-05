@@ -18,6 +18,22 @@ export default function TodoList() {
         //console.log(newTodos)
     }
 
+    const updateTodo = (todoId, newValue) => {
+        if(!newValue.text || /^\s*$/.test(newValue)) {
+            return;
+        }
+
+        setTodos(prev => prev.map(item => (item.id === todoId ? newValue : item)));
+    }
+
+    const removeTodo = id => {
+        const removeArr = [...todos].filter(todo => todo.id !== id);
+
+        setTodos(removeArr);
+
+        //console.log(removeArr)
+    }
+
     const completeTodo = id => {
         let updatedTodo = todos.map(todo => {
             if(todo.id === id) {
@@ -37,6 +53,8 @@ export default function TodoList() {
             <Todo 
                 todos={todos}
                 completeTodo={completeTodo}
+                removeTodo={removeTodo}
+                updateTodo={updateTodo}
             />
         </Fragment>
     )
